@@ -1,0 +1,12 @@
+/* Custom CSS */
+.navbar {
+    margin-bottom: 20px;
+}
+
+.dropdown-menu {
+    display: none;
+}
+
+.dropdown-menu.show {
+    display: block;
+}

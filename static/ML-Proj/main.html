@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,500&display=swap" rel="stylesheet">
+    <title>Data Science Project</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+        }
+        .navbar, .sub-navbar {
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,.1);
+            background-color: #f8f9fa;
+        }
+        .navbar-brand, .sub-navbar-brand {
+            font-weight: 500;
+            color: #007bff !important;
+        }
+        .nav-link, .sub-nav-link {
+            color: #555 !important;
+            transition: color 0.3s ease-in-out;
+        }
+        .nav-link:hover, .sub-nav-link:hover,
+        .nav-item:hover .nav-link, .nav-item:hover .sub-nav-link {
+            color: #007bff !important;
+        }
+        .nav-link.active, .sub-nav-link.active {
+            color: #007bff !important;
+            font-weight: 500;
+        }
+        .tab-content, .sub-tab-content {
+            display: none;
+        }
+        .tab-content.active, .sub-tab-content.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Main Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <a class="navbar-brand" href="#">Data Science Project</a>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" onclick="showMainTab('Module1')">Module-1</a></li>
+                    <li class="nav-item"><a class="nav-link" onclick="showMainTab('Module2')">Module-2</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <!-- Module 1 Content -->
+        <div id="Module1" class="tab-content">
+            <!-- Sub Navbar for Module 1 -->
+            <nav class="sub-navbar navbar-expand-lg navbar-light">
+                <div class="collapse navbar-collapse">
+                    <ul class="navbar-nav">
+                        <li class="nav-item"><a class="sub-nav-link" onclick="showSubTab('Module1Intro')">INTRO</a></li>
+                        <li class="nav-item"><a class="sub-nav-link" onclick="showSubTab('Module1EDA')">EDA</a></li>
+                        <li class="nav-item"><a class="sub-nav-link" onclick="showSubTab('Module1Conclusion')">CONCLUSION</a></li>
+                    </ul>
+                </div>
+            </nav>
+            <!-- Intro Content for Module 1 -->
+            <div id="Module1Intro" class="sub-tab-content active">
+                <h2>Module 1: Introduction</h2>
+                <p>Dummy content for Module 1 Introduction...</p>
+            </div>
+            <!-- EDA Content for Module 1 -->
+            <div id="Module1EDA" class="sub-tab-content">
+                <h2>Module 1: EDA</h2>
+                <p>Dummy content for Module 1 EDA...</p>
+            </div>
+            <!-- Conclusion Content for Module 1 -->
+            <div id="Module1Conclusion" class="sub-tab-content">
+                <h2>Module 1: Conclusion</h2>
+                <p>Dummy content for Module 1 Conclusion...</p>
+            </div>
+        </div>
+
+        <!-- Module 2 Content -->
+        <div id="Module2" class="tab-content">
+            <!-- Similar structure for Module 2 with its own sub-navbar and content -->
+        </div>
+    </div>
+
+    <!-- Bootstrap and jQuery scripts -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script>
+        // JavaScript for showing/hiding main and sub-tabs
+        function showMainTab(tabId) {
+            const mainTabContents = document.querySelectorAll('.tab-content');
+            mainTabContents.forEach((content) => {
+                content.classList.remove('active');
+            });
+
+            const selectedMainTab = document.getElementById(tabId);
+            selectedMainTab.classList.add('active');
+        }
+
+        function showSubTab(tabId) {
+            const subTabContents = document.querySelectorAll('.sub-tab-content');
+            subTabContents.forEach((content) => {
+                content.classList.remove('active');
+            });
+
+            const selectedSubTab = document.getElementById(tabId);
+            selectedSubTab.classList.add('active');
+        }
+    </script>
+</body>
+</html>

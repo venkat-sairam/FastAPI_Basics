@@ -1,0 +1,17 @@
+[project]
+name = "sentinel-api"
+version = "0.1.0"
+dependencies = [
+  "fastapi",
+  "uvicorn[standard]",
+  "sqlalchemy",
+  "psycopg2-binary",
+  "redis",
+  "python-dotenv",
+  "streamlit",
+  "loguru",
+  "alembic",
+  "sqlmodel",
+  "pydantic",
+
+]

@@ -4,42 +4,44 @@ import requests
 st.title("Sign Up")
 st.write("Create a new account")
 
-username = st.text_input("Username")
-email = st.text_input("Email")
-gender = st.selectbox("Gender", ["", "male", "female", "other"])
-location = st.text_input("Location")
-role = st.selectbox("Role", ["", "user", "admin", "guest"])
+message = st.empty()
 
-if st.button("Sign Up"):
-    if not username or not email or not role:
-        st.warning("Username, Email, and Role are required.")
+with st.form("signup_form"):
+    username = st.text_input("Username", key="signup_username")
+    email    = st.text_input("Email",    key="signup_email")
+    gender   = st.selectbox("Gender",    ["", "male", "female", "other"], key="signup_gender")
+    role     = st.selectbox("Role",      ["", "user", "admin", "guest"],   key="signup_role")
+    location = st.text_input("Location",  key="signup_location")
+    submitted = st.form_submit_button("Sign Up")
+
+if submitted:
+
+    message.empty()
+    if not username or not email or not gender or not role:
+        message.warning("Username, Email, Gender, and Role are required.")
     else:
         payload = {
             "username": username,
-            "email": email,
-            "gender": gender or None,
+            "email":    email,
+            "gender":   gender,
             "location": location or None,
-            "role": role
+            "role":     role
         }
 
         try:
-            response = requests.post("http://api:8000/signup", json=payload)
+            resp = requests.post("http://api:8000/signup", json=payload)
         except Exception as e:
-            st.error(f"Request failed: {e}")
-            st.stop()
-
-        try:
-            response_json = response.json()
-            st.write("Status Code:", response.status_code)
-            st.write("Raw Text:", response.text)
-        except Exception as e:
-            st.error(f"Failed to decode JSON: {e}")
-            st.error(f"Raw response: {response.text}")
-            response_json = {}
-
-        if response.ok and "user_id" in response_json:
-            st.success("Account created successfully!")
-            st.success("User ID: {}".format(response_json.get("user_id")))
+            message.error(f"Request failed: {e}")
         else:
-            st.error(f"Error: {response_json.get('detail') or response.text}")
-
+            try:
+                data = resp.json()
+            except Exception:
+                message.error("Invalid JSON in response")
+            else:
+                if resp.ok and "user_id" in data:
+                    message.success(f"Account created! User ID: {data['user_id']}")
+                    
+                else:
+ 
+                    message.error(data.get("detail", resp.text))
+                st.experimental_rerun() 

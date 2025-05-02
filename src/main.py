@@ -2,6 +2,7 @@
 from fastapi import FastAPI
 from src.db.db import init_db
 from src.routes.user import router as user_router
+from test.routes import redis_router
 app = FastAPI()
 
 @app.on_event("startup")
@@ -21,3 +22,4 @@ def health_check():
     return {"status": "ok"}
     
 app.include_router(user_router)
+app.include_router(redis_router, prefix="/redis", tags=["redis"])

@@ -2,7 +2,6 @@ from sqlmodel import SQLModel
 from typing import Optional
 from enum import Enum
 
-
 class GenderEnum(str, Enum):
     male = "male"
     female = "female"

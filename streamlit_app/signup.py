@@ -44,4 +44,4 @@ if submitted:
                 else:
  
                     message.error(data.get("detail", resp.text))
-                st.experimental_rerun() 
+

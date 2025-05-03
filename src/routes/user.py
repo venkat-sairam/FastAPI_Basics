@@ -5,7 +5,7 @@ from db.db import get_session
 from db.schema import UserCreate
 from db.models import User
 from datetime import datetime
-
+from src.middleware.test_rl import rate_limiter
 router = APIRouter()
 
 
@@ -33,3 +33,10 @@ async def signup(user: UserCreate, session: Session = Depends(get_session)):
             "status": "created",
             "user_id": new_user.id
         }
+
+@router.get("/user/{user_id}", dependencies=[Depends(rate_limiter)])
+def get_user(user_id: int, session: Session = Depends(get_session)):
+    user = session.query(User).filter(User.id == user_id).first()
+    if not user:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not found")
+    return user
